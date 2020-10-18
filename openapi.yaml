@@ -1,0 +1,318 @@
+---
+openapi: 3.0.1
+info:
+  title: Bank API
+  description: An extremely oversimplified API for a bank
+  version: 'v1'
+servers:
+  - url: 'http://localhost:8080/v1'
+paths:
+  '/account-holders':
+    post:
+      summary: Create an Account Holder
+      operationId: createAccountHolder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountHolderRequest'
+      responses:
+        '201':
+          description: Created Account Holder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolderResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  '/account-holders/{id}':
+    get:
+      summary: Get an Account Holder
+      operationId: getAccountHolder
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Account Holder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolderResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  '/accounts':
+    post:
+      summary: Create an Account
+      operationId: createAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+      responses:
+        '201':
+          description: Created Account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  '/accounts/{id}':
+    get:
+      summary: Get an Account
+      operationId: getAccount
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  '/transfers':
+    post:
+      summary: Create a Transfer
+      operationId: createTransfer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRequest'
+      responses:
+        '201':
+          description: Created Transfer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  '/transfers/{id}':
+    get:
+      summary: Get a Transfer
+      operationId: getTransfer
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Transfer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+    patch:
+      summary: Update a Transfer's status
+      operationId: updateTransfer
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferUpdateRequest'
+      responses:
+        '200':
+          description: Transfer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  '/ping':
+    get:
+      summary: Ping
+      operationId: ping
+      responses:
+        '204':
+          description: Pong
+  '/healtcheck':
+    get:
+      summary: Healthcheck
+      operationId: healthcheck
+      responses:
+        '200':
+          description: Health Status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthcheckResponse'
+components:
+  schemas:
+    AccountHolderRequest:
+      description: Account Holder Request
+      type: object
+      required:
+        - first_name
+        - last_name
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+    AccountHolderResponse:
+      description: Account Holder Response
+      type: object
+      required:
+        - id
+        - first_name
+        - last_name
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+    AccountRequest:
+      description: Account Request
+      type: object
+      required:
+        - account_holder_id
+        - balance
+      properties:
+        account_holder_id:
+          type: string
+        balance:
+          type: integer
+    AccountResponse:
+      description: Account Response
+      type: object
+      required:
+        - id
+        - account_holder_id
+        - balance
+      properties:
+        id:
+          type: string
+        account_holder_id:
+          type: string
+        balance:
+          type: integer
+    TransferRequest:
+      description: Transfer Request
+      type: object
+      required:
+        - source_account_id
+        - destination_account_id
+        - amount
+      properties:
+        source_account_id:
+          type: string
+        destination_account_id:
+          type: string
+        amount:
+          type: integer
+    TransferUpdateRequest:
+      description: Transfer Update Request
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/TransferStatus'
+    TransferResponse:
+      description: Transfer Response
+      type: object
+      required:
+        - id
+        - source_account_id
+        - destination_account_id
+        - amount
+        - status
+      properties:
+        id:
+          type: string
+        source_account_id:
+          type: string
+        destination_account_id:
+          type: string
+        amount:
+          type: integer
+        status:
+          $ref: '#/components/schemas/TransferStatus'
+    TransferStatus:
+      type: string
+      enum:
+        - CREATED
+        - SETTLED
+        - CANCELED
+    FailureResponse:
+      description: Response message indicating Scheme experienced a problem.
+      type: object
+      required:
+        - error_messages
+      properties:
+        error_messages:
+          type: array
+          items:
+            type: string
+    HealthcheckResponse:
+      description: Healthcheck Response
+      type: object
+      required:
+        - healthy
+        - unhealthy
+      properties:
+        healthy:
+          type: array
+          items:
+            type: string
+        unhealthy:
+          type: array
+          items:
+            type: string
