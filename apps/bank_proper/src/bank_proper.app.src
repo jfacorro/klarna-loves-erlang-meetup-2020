@@ -10,7 +10,7 @@
       ]
     }
   , { env
-    , [ {host, "http://localhost"}
+    , [ {host, "http://localhost:8080"}
       , {basic_auth, {"admin", "admin"}}
       ]
     }
