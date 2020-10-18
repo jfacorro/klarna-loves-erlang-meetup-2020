@@ -1,0 +1,21 @@
+{ application, bank_proper
+, [ {description, "An extremely oversimplified API for a bank"}
+  , {vsn, "0.1.0"}
+  , {registered, []}
+  , { applications
+    , [ kernel
+      , stdlib
+      , ssl
+      , jsx
+      ]
+    }
+  , { env
+    , [ {host, "http://localhost"}
+      , {basic_auth, {"admin", "admin"}}
+      ]
+    }
+  , {modules, []}
+  , {maintainers, []}
+  , {licenses, []}
+  , {links, []}
+]}.
