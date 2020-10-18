@@ -2,6 +2,7 @@
     {description, "An extremely oversimplified API for a bank"},
     {vsn, "1.0.0"},
     {registered, []},
+    {mod, {bank_app, []}},
     {applications, [
         kernel,
         stdlib,
