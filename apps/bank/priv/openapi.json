@@ -1,0 +1,496 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "description" : "An extremely oversimplified API for a bank",
+    "title" : "Bank API",
+    "version" : "v1"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8080/v1"
+  } ],
+  "paths" : {
+    "/account-holders" : {
+      "post" : {
+        "operationId" : "createAccountHolder",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AccountHolderRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountHolderResponse"
+                }
+              }
+            },
+            "description" : "Created Account Holder"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Create an Account Holder"
+      }
+    },
+    "/account-holders/{id}" : {
+      "get" : {
+        "operationId" : "getAccountHolder",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountHolderResponse"
+                }
+              }
+            },
+            "description" : "Account Holder"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Get an Account Holder"
+      }
+    },
+    "/accounts" : {
+      "post" : {
+        "operationId" : "createAccount",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AccountRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountResponse"
+                }
+              }
+            },
+            "description" : "Created Account"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Create an Account"
+      }
+    },
+    "/accounts/{id}" : {
+      "get" : {
+        "operationId" : "getAccount",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountResponse"
+                }
+              }
+            },
+            "description" : "Account"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Get an Account"
+      }
+    },
+    "/transfers" : {
+      "post" : {
+        "operationId" : "createTransfer",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TransferRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TransferResponse"
+                }
+              }
+            },
+            "description" : "Created Transfer"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Create a Transfer"
+      }
+    },
+    "/transfers/{id}" : {
+      "get" : {
+        "operationId" : "getTransfer",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TransferResponse"
+                }
+              }
+            },
+            "description" : "Transfer"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Get a Transfer"
+      },
+      "patch" : {
+        "operationId" : "updateTransfer",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TransferUpdateRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TransferResponse"
+                }
+              }
+            },
+            "description" : "Transfer"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Update a Transfer's status"
+      }
+    },
+    "/ping" : {
+      "get" : {
+        "operationId" : "ping",
+        "responses" : {
+          "204" : {
+            "description" : "Pong"
+          }
+        },
+        "summary" : "Ping"
+      }
+    },
+    "/healtcheck" : {
+      "get" : {
+        "operationId" : "healthcheck",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/HealthcheckResponse"
+                }
+              }
+            },
+            "description" : "Health Status"
+          }
+        },
+        "summary" : "Healthcheck"
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "AccountHolderRequest" : {
+        "description" : "Account Holder Request",
+        "example" : {
+          "last_name" : "last_name",
+          "first_name" : "first_name"
+        },
+        "properties" : {
+          "first_name" : {
+            "type" : "string"
+          },
+          "last_name" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "first_name", "last_name" ],
+        "type" : "object"
+      },
+      "AccountHolderResponse" : {
+        "description" : "Account Holder Response",
+        "example" : {
+          "last_name" : "last_name",
+          "id" : "id",
+          "first_name" : "first_name"
+        },
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "first_name" : {
+            "type" : "string"
+          },
+          "last_name" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "first_name", "id", "last_name" ],
+        "type" : "object"
+      },
+      "AccountRequest" : {
+        "description" : "Account Request",
+        "example" : {
+          "account_holder_id" : "account_holder_id",
+          "balance" : 0
+        },
+        "properties" : {
+          "account_holder_id" : {
+            "type" : "string"
+          },
+          "balance" : {
+            "type" : "integer"
+          }
+        },
+        "required" : [ "account_holder_id", "balance" ],
+        "type" : "object"
+      },
+      "AccountResponse" : {
+        "description" : "Account Response",
+        "example" : {
+          "account_holder_id" : "account_holder_id",
+          "balance" : 0,
+          "id" : "id"
+        },
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "account_holder_id" : {
+            "type" : "string"
+          },
+          "balance" : {
+            "type" : "integer"
+          }
+        },
+        "required" : [ "account_holder_id", "balance", "id" ],
+        "type" : "object"
+      },
+      "TransferRequest" : {
+        "description" : "Transfer Request",
+        "example" : {
+          "amount" : 0,
+          "destination_account_id" : "destination_account_id",
+          "source_account_id" : "source_account_id"
+        },
+        "properties" : {
+          "source_account_id" : {
+            "type" : "string"
+          },
+          "destination_account_id" : {
+            "type" : "string"
+          },
+          "amount" : {
+            "type" : "integer"
+          }
+        },
+        "required" : [ "amount", "destination_account_id", "source_account_id" ],
+        "type" : "object"
+      },
+      "TransferUpdateRequest" : {
+        "description" : "Transfer Update Request",
+        "example" : { },
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/TransferStatus"
+          }
+        },
+        "required" : [ "status" ],
+        "type" : "object"
+      },
+      "TransferResponse" : {
+        "description" : "Transfer Response",
+        "example" : {
+          "amount" : 0,
+          "destination_account_id" : "destination_account_id",
+          "source_account_id" : "source_account_id",
+          "id" : "id"
+        },
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "source_account_id" : {
+            "type" : "string"
+          },
+          "destination_account_id" : {
+            "type" : "string"
+          },
+          "amount" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/TransferStatus"
+          }
+        },
+        "required" : [ "amount", "destination_account_id", "id", "source_account_id", "status" ],
+        "type" : "object"
+      },
+      "TransferStatus" : {
+        "enum" : [ "CREATED", "SETTLED", "CANCELED" ],
+        "type" : "string"
+      },
+      "FailureResponse" : {
+        "description" : "Response message indicating Scheme experienced a problem.",
+        "properties" : {
+          "error_messages" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "error_messages" ],
+        "type" : "object"
+      },
+      "HealthcheckResponse" : {
+        "description" : "Healthcheck Response",
+        "example" : {
+          "healthy" : [ "healthy", "healthy" ],
+          "unhealthy" : [ "unhealthy", "unhealthy" ]
+        },
+        "properties" : {
+          "healthy" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "unhealthy" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "healthy", "unhealthy" ],
+        "type" : "object"
+      }
+    }
+  }
+}
