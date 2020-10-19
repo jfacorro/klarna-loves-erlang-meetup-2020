@@ -97,6 +97,9 @@ weight(CmdName) ->
 %% create_account
 %%==============================================================================
 
+create_account_pre(_S = #{account_holders := AccountHolders}) ->
+  maps:size(AccountHolders) > 0.
+
 create_account(BankProperAccountRequest) ->
   bank_proper_api:create_account(BankProperAccountRequest).
 
