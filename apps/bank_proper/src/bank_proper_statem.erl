@@ -55,7 +55,28 @@ cleanup() -> ok.
 %% Initial State
 %%==============================================================================
 
-initial_state() -> #{}.
+-type account_holder_id() :: binary().
+-type account_id()        :: binary().
+-type transfer_id()       :: binary().
+-type balance()           :: integer().
+-type status()            :: created | settled | canceled.
+-type transfer()          :: #{ source => account_id()
+                              , dest   => account_id()
+                              , amount => balance()
+                              , status => status()
+                              }.
+
+-type state() :: #{ account_holders => #{account_holder_id() => [account_id()]}
+                  , accounts        => #{account_id()        => balance()}
+                  , transfers       => #{transfer_id()       => transfer()}
+                  }.
+
+-spec initial_state() -> state().
+initial_state() ->
+  #{ account_holders => #{}
+   , accounts        => #{}
+   , transfers       => #{}
+   }.
 
 %%==============================================================================
 %% create_account
@@ -146,4 +167,3 @@ update_transfer(Id, BankProperTransferUpdateRequest) ->
 
 update_transfer_args(_S) ->
   [binary(), bank_proper_transfer_update_request:bank_proper_transfer_update_request()].
-
