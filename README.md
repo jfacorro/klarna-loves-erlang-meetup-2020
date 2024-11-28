@@ -40,7 +40,7 @@ Then change the `bank_app:start/2` function as follows:
 
 ```erlang
 start(_StartType, _StartArgs) ->
-  Opts = #{ip => {127,0,0,1}, port => 8080, net_opts => []},
+  Opts = #{transport_opts => [{ip,{127,0,0,1}},{port,8080}]},
   bank_server:start(bank_http_server, Opts),
   bank_sup:start_link().
 ```

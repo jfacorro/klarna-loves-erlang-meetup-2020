@@ -23,7 +23,7 @@
           "required" : true
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -99,7 +99,7 @@
           "required" : true
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -175,7 +175,7 @@
           "required" : true
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -414,7 +414,9 @@
       },
       "TransferUpdateRequest" : {
         "description" : "Transfer Update Request",
-        "example" : { },
+        "example" : {
+          "status" : "CREATED"
+        },
         "properties" : {
           "status" : {
             "$ref" : "#/components/schemas/TransferStatus"
@@ -429,7 +431,8 @@
           "amount" : 0,
           "destination_account_id" : "destination_account_id",
           "source_account_id" : "source_account_id",
-          "id" : "id"
+          "id" : "id",
+          "status" : "CREATED"
         },
         "properties" : {
           "id" : {
@@ -457,6 +460,9 @@
       },
       "FailureResponse" : {
         "description" : "Response message indicating Scheme experienced a problem.",
+        "example" : {
+          "error_messages" : [ "error_messages", "error_messages" ]
+        },
         "properties" : {
           "error_messages" : {
             "items" : {
