@@ -1,20 +1,12 @@
-{application, bank, [
-    {description, "An extremely oversimplified API for a bank"},
-    {vsn, "1.0.0"},
-    {registered, []},
-    {mod, {bank_app, []}},
-    {applications, [
-        kernel,
-        stdlib,
-        ssl,
-        inets,
-        jsx,
-        jesse,
-        cowboy
-    ]},
-    {env, [
-    ]},
-    {modules, []},
-    {licenses, []},
-    {links, []}
-]}.
+{application,
+ bank,
+ [{description,
+   "An extremely oversimplified API for a bank"},
+  {vsn, "1.0.0"},
+  {mod, {bank_app, []}},
+  {registered, []},
+  {applications, [kernel, stdlib, public_key, ssl, inets, ranch, cowboy]},
+  {env, []},
+  {modules, []},
+  {licenses, []},
+  {links, []}]}.

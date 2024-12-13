@@ -55,50 +55,11 @@ cleanup() -> ok.
 %% Initial State
 %%==============================================================================
 
--type account_holder_id() :: binary().
--type account_id()        :: binary().
--type transfer_id()       :: binary().
--type balance()           :: integer().
--type status()            :: created | settled | canceled.
--type transfer()          :: #{ source => account_id()
-                              , dest   => account_id()
-                              , amount => balance()
-                              , status => status()
-                              }.
-
--type state() :: #{ account_holders => #{account_holder_id() => [account_id()]}
-                  , accounts        => #{account_id()        => balance()}
-                  , transfers       => #{transfer_id()       => transfer()}
-                  }.
-
--spec initial_state() -> state().
-initial_state() ->
-  #{ account_holders => #{}
-   , accounts        => #{}
-   , transfers       => #{}
-   }.
-
-%%==============================================================================
-%% Commands Weights
-%%==============================================================================
-
-weight(CmdName) ->
-  case CmdName of
-    create_account_holder      -> 1;
-    get_account                -> 3;
-    create_account             -> 1;
-    get_transfer               -> 1;
-    create_transfer            -> 5;
-    update_transfer            -> 1;
-    _                          -> 0
-  end.
+initial_state() -> #{}.
 
 %%==============================================================================
 %% create_account
 %%==============================================================================
-
-create_account_pre(_S = #{account_holders := AccountHolders}) ->
-  maps:size(AccountHolders) > 0.
 
 create_account(BankProperAccountRequest) ->
   bank_proper_api:create_account(BankProperAccountRequest).
@@ -185,3 +146,4 @@ update_transfer(Id, BankProperTransferUpdateRequest) ->
 
 update_transfer_args(_S) ->
   [binary(), bank_proper_transfer_update_request:bank_proper_transfer_update_request()].
+
